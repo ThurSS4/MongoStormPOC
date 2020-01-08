@@ -17,9 +17,10 @@ public class MultiplierBolt extends BaseBasicBolt {
 
     public void execute(Tuple tuple, BasicOutputCollector basicOutputCollector) {
         Integer number = tuple.getInteger(0);
-        number *= 2;
-        numbers.add(number);
+        int multipliedNumber = number *= 2;
+        numbers.add(multipliedNumber);
         basicOutputCollector.emit(new Values(number));
+        System.out.println("Added multipliedNumber " + multipliedNumber);
     }
 
     public void declareOutputFields(OutputFieldsDeclarer outputFieldsDeclarer) {
@@ -39,5 +40,6 @@ public class MultiplierBolt extends BaseBasicBolt {
         }
 
         destinationCol.insertMany(multipliedNumbers);
+        System.out.println("Inserted " + multipliedNumbers.size() + " to stormtest.");
     }
 }
